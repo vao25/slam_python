@@ -59,4 +59,39 @@ def ekfslam_sim(lm, wp):
     if c.SWITCH_SEED_RANDOM:
         np.random.seed(c.SWITCH_SEED_RANDOM)
         
+    NUMBER_LOOPS = c.NUMBER_LOOPS
+        
+    # main loop
+    while iwp != 0:    
+        # compute true data
+        [G,iwp]= compute_steering(xtrue, wp, iwp, c.AT_WAYPOINT, G, c.RATEG, c.MAXG, dt)
+        if iwp==0 & NUMBER_LOOPS > 1:
+            iwp=1;
+            NUMBER_LOOPS= NUMBER_LOOPS-1 # perform loops: if final waypoint reached, go back to first
+        xtrue= vehicle_model(xtrue, c.V,G, c.WHEELBASE,dt)
+        [Vn,Gn]= add_control_noise(c.V,G,c.Q, c.SWITCH_CONTROL_NOISE)
+    
+        # EKF predict step
+        [x,P]= predict (x,P, Vn,Gn,QE, c.WHEELBASE,dt)
+    
+        # if heading known, observe heading
+        [x,P]= observe_heading(x,P, xtrue[2], c.SWITCH_HEADING_KNOWN)
+    
+        # EKF update step
+        dtsum= dtsum + dt
+        if dtsum >= c.DT_OBSERVE:
+            dtsum= 0
+            [z,ftag_visible]= get_observations(xtrue, lm, ftag, c.MAX_RANGE)
+            z= add_observation_noise(z,c.R, c.SWITCH_SENSOR_NOISE)
+    
+            if c.SWITCH_ASSOCIATION_KNOWN == 1:
+                [zf,idf,zn, da_table]= data_associate_known(x,z,ftag_visible, da_table)
+            else:
+                [zf,idf, zn]= data_associate(x,P,z,RE, c.GATE_REJECT, c.GATE_AUGMENT) 
+
+            [x,P]= update(x,P,zf,RE,idf, c.SWITCH_BATCH_UPDATE) 
+            [x,P]= augment(x,P, zn,RE) 
+    
+        # offline data store
+        data= store_data(data, x, P, xtrue)
     
