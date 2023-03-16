@@ -60,23 +60,25 @@ while True:
             elif((waypoints[0] <= mouse[0] <= waypoints[0]+buttonW) and (waypoints[1] <= mouse[1]<= waypoints[1] + buttonH)):
                 switch = "w"
             elif((canvas00[0] <= mouse[0] <= width-canvas00[0]) and (canvas00[1] <= mouse[1]<= width-canvas00[1])):
-                d = {}
-                d = {"l": mapa.lm, "w": mapa.wp}
-                index = 0
-                indexF = int
-                minimum = 100000
-                for j in d[switch]:
-                    a = j[0] + mapa.x[0] + canvas00[0]
-                    b = -j[1] + mapa.x[1] + canvas00[1]
-                    s = ((a-mouse[0])**2 + (b-mouse[1])**2)**0.5
-                    if s < minimum:
-                        minimum = s
-                        indexF = index
-                    index = index + 1
-                if minimum < 5:
-                    mapa.remove(switch, indexF)
-                else:
-                    mapa.add(switch, mouse[0]-canvas00[0], mouse[1]-canvas00[1])
+                if (switch == "l") or (switch == "w"):
+                    d = {}
+                    d = {"l": mapa.lm, "w": mapa.wp}
+                    distances = []
+                    minimum = 100000
+                    for j in d[switch]:
+                        a = j[0] + mapa.x[0] + canvas00[0]
+                        b = -j[1] + mapa.x[1] + canvas00[1]
+                        s = ((a-mouse[0])**2 + (b-mouse[1])**2)**0.5
+                        distances.append(s)
+                        if s < minimum:
+                            minimum = s
+                    if minimum < 5:
+                        index = distances.index(minimum)
+                        mapa.remove(switch, index)
+                    else:
+                        mapa.add(switch, mouse[0]-canvas00[0], mouse[1]-canvas00[1])
+                elif switch == "r":
+                        mapa.add(switch, mouse[0]-canvas00[0], mouse[1]-canvas00[1])
      
     screen.fill(black)
     pygame.draw.rect(screen, white, canvas)
