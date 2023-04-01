@@ -47,7 +47,7 @@ def ekfslam_sim(lm, wp):
     dt = c.DT_CONTROLS
     dtsum = 0
     ftag = np.arange(lm.shape[1])
-    da_table = np.zeros((1, lm.shape[1]))
+    da_table = np.zeros((1, lm.shape[1])) - 1
     iwp = 0
     G = 0
     data = initialise_store(x,P,x)
