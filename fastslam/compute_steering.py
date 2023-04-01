@@ -25,7 +25,7 @@ def compute_steering(x, wp, iwp, minD, G, rateG, maxG, dt):
     d2 = (cwp[0]-x[0])**2 + (cwp[1]-x[1])**2
     if d2 < minD**2:
         iwp = iwp+1 # switch to next
-        if iwp > wp.shape[1]: # reached final waypoint, flag and return
+        if iwp >= wp.shape[1]: # reached final waypoint, flag and return
             iwp = -1
             return G, iwp
         cwp = wp[:,iwp] # next waypoint
