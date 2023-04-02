@@ -1,20 +1,20 @@
 import numpy as np
 
 def augment(x,P,z,R):
-"""
-[x,P]= augment(x,P,z,R)
+    """
+    [x,P]= augment(x,P,z,R)
 
- Inputs:
-   x, P - SLAM state and covariance
-   z, R - range-bearing measurements and covariances, each of a new feature
+     Inputs:
+       x, P - SLAM state and covariance
+       z, R - range-bearing measurements and covariances, each of a new feature
 
- Outputs:
-   x, P - augmented state and covariance
+     Outputs:
+       x, P - augmented state and covariance
 
- Notes: 
-   - We assume the number of vehicle pose states is three.
-   - Only one value for R is used, as all measurements are assumed to have same noise properties.
-"""
+     Notes: 
+       - We assume the number of vehicle pose states is three.
+       - Only one value for R is used, as all measurements are assumed to have same noise properties.
+    """
     
     # add new features to state
     for i in range(z.shape[1]):

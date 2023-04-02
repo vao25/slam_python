@@ -1,19 +1,19 @@
 import numpy as np
 
 def observe_model(x, idf):
-"""
-[z,H]= observe_model(x, idf)
+    """
+    [z,H]= observe_model(x, idf)
 
- INPUTS:
-   x - state vector
-   idf - index of feature order in state
+     INPUTS:
+       x - state vector
+       idf - index of feature order in state
 
- OUTPUTS:
-   z - predicted observation
-   H - observation Jacobian
+     OUTPUTS:
+       z - predicted observation
+       H - observation Jacobian
 
-Given a feature index (ie, the order of the feature in the state vector), predict the expected range-bearing observation of this feature and its Jacobian.
-"""
+    Given a feature index (ie, the order of the feature in the state vector), predict the expected range-bearing observation of this feature and its Jacobian.
+    """
     
     Nxv = 3 # number of vehicle pose states
     fpos = Nxv + idf*2 - 1 # position of xf in state
