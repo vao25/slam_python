@@ -22,7 +22,7 @@ def get_observations(x, lm, idf, rmax):
         phi = x[2]
         # incremental tests for bounding semi-circle
         # bounding box, bounding line, bounding circle
-        ii = np.where(np.abs(dx) < rmax & np.abs(dy) < rmax & (dx * np.cos(phi) + dy * np.sin(phi)) > 0 & (dx ** 2 + dy ** 2) < rmax ** 2)[0]
+        ii = np.where(np.abs(dx) < rmax and np.abs(dy) < rmax and (dx * np.cos(phi) + dy * np.sin(phi)) > 0 and (dx ** 2 + dy ** 2) < rmax ** 2)[0]
         # Note: the bounding box test is unnecessary but illustrates a possible speedup technique as it quickly eliminates distant points. Ordering the landmark set would make this operation O(logN) rather that O(N).
         lm = lm[:, ii]
         idf = idf[ii]
