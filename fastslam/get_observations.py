@@ -1,19 +1,19 @@
 import numpy as np
 
 def get_observations(x, lm, idf, rmax):
-"""
-    [z,idf]= get_observations(x, lm, idf, rmax)
+    """
+        [z,idf]= get_observations(x, lm, idf, rmax)
 
- INPUTS:
-   x - vehicle pose [x;y;phi]
-   lm - set of all landmarks
-   idf - index tags for each landmark
-   rmax - maximum range of range-bearing sensor 
+     INPUTS:
+       x - vehicle pose [x;y;phi]
+       lm - set of all landmarks
+       idf - index tags for each landmark
+       rmax - maximum range of range-bearing sensor 
 
- OUTPUTS:
-   z - set of range-bearing observations
-   idf - landmark index tag for each observation
-"""
+     OUTPUTS:
+       z - set of range-bearing observations
+       idf - landmark index tag for each observation
+    """
     
     lm, idf = get_visible_landmarks(x, lm, idf, rmax)
     z = compute_range_bearing(x, lm)
