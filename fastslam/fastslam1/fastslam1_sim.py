@@ -86,7 +86,7 @@ def fastslam1_sim(lm, wp, phi):
         
         # Observe step
         dtsum = dtsum + dt
-        if dtsum >= DT_OBSERVE:
+        if dtsum >= c.DT_OBSERVE:
             dtsum = 0
             
             # Compute true data, then add noise
