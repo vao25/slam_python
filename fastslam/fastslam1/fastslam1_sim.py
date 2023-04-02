@@ -17,27 +17,27 @@ from resample_particles import resample_particles
 
 
 def fastslam1_sim(lm, wp, phi):
-"""
-data= fastslam1_sim(lm, wp, phi)
+    """
+    data= fastslam1_sim(lm, wp, phi)
 
- INPUTS: 
-   lm - set of landmarks
-   wp - set of waypoints
-   phi - initial rotation angle
-  
+     INPUTS: 
+       lm - set of landmarks
+       wp - set of waypoints
+       phi - initial rotation angle
 
- OUTPUTS:
-   data - set of particles representing final state
 
- NOTES:
-   This program is a FastSLAM 1.0 simulator. To use, create a set of landmarks and 
-   vehicle waypoints (ie, waypoints for the desired vehicle path). The program
-   'setup.py' may be used to create this simulated environment.
-       The configuration of the simulator is managed by the script file
-   'configfile.py'. To alter the parameters of the vehicle, sensors, etc
-   adjust this file. There are also several switches that control certain
-   filter options.
-"""
+     OUTPUTS:
+       data - set of particles representing final state
+
+     NOTES:
+       This program is a FastSLAM 1.0 simulator. To use, create a set of landmarks and 
+       vehicle waypoints (ie, waypoints for the desired vehicle path). The program
+       'setup.py' may be used to create this simulated environment.
+           The configuration of the simulator is managed by the script file
+       'configfile.py'. To alter the parameters of the vehicle, sensors, etc
+       adjust this file. There are also several switches that control certain
+       filter options.
+    """
 
     if c.SWITCH_PREDICT_NOISE == 0:
         print('Sampling from predict noise is necessary for FastSLAM 1.0 particle diversity')
