@@ -2,19 +2,19 @@ import numpy as np
 from pi_to_pi import pi_to_pi
 
 def predict(x, P, v, g, Q, WB, dt):    
-"""
-[xn,Pn]= predict (x,P,v,g,Q,WB,dt)
+    """
+    [xn,Pn]= predict (x,P,v,g,Q,WB,dt)
 
- Inputs:
-   x, P - SLAM state and covariance
-   v, g - control inputs: velocity and gamma (steer angle)
-   Q - covariance matrix for velocity and gamma
-   WB - vehicle wheelbase
-   dt - timestep
+     Inputs:
+       x, P - SLAM state and covariance
+       v, g - control inputs: velocity and gamma (steer angle)
+       Q - covariance matrix for velocity and gamma
+       WB - vehicle wheelbase
+       dt - timestep
 
- Outputs: 
-   xn, Pn - predicted state and covariance
-"""
+     Outputs: 
+       xn, Pn - predicted state and covariance
+    """
     
     s = np.sin(g + x[2])
     c = np.cos(g + x[2])
