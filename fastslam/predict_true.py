@@ -1,4 +1,6 @@
 from pi_to_pi import pi_to_pi
+from math import cos
+from math import sin
 
 def predict_true(xv, V, G, WB, dt):
     xv[0] = xv[0] + V*dt*cos(G+xv[2])
