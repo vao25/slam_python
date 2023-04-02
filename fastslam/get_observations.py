@@ -14,10 +14,6 @@ def get_observations(x, lm, idf, rmax):
        z - set of range-bearing observations
        idf - landmark index tag for each observation
     """
-    
-    lm, idf = get_visible_landmarks(x, lm, idf, rmax)
-    z = compute_range_bearing(x, lm)
-    return z, idf
 
     def get_visible_landmarks(x, lm, idf, rmax):
         # Select set of landmarks that are visible within vehicle's semi-circular field-of-view
@@ -39,3 +35,7 @@ def get_observations(x, lm, idf, rmax):
         phi = x[2]
         z = np.array([np.sqrt(dx ** 2 + dy ** 2), np.arctan2(dy, dx) - phi])
         return z
+    
+    lm, idf = get_visible_landmarks(x, lm, idf, rmax)
+    z = compute_range_bearing(x, lm)
+    return z, idf
