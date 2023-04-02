@@ -43,7 +43,7 @@ def fastslam1_sim(lm, wp, phi):
         print('Sampling from predict noise is necessary for FastSLAM 1.0 particle diversity')
     
     # initialisations
-    particles = initialise_particles(c.NPARTICLES)
+    particles = initialise_particles(c.NPARTICLES, phi)
     xtrue = np.zeros((3, 1))
     xtrue[2] = phi
     
