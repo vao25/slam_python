@@ -98,6 +98,7 @@ def ekfslam_sim(lm, wp, phi):
         # offline data store
         data= store_data(data, x, P, xtrue)
     data= finalise_data(data);
+    return data
     
     
 def initialise_store(x, P, xtrue):
