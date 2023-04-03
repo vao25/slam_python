@@ -23,21 +23,21 @@ def data_associate(x, P, z, R, gate1, gate2):
         nbest = float('inf')
         outer = float('inf')
     
-    # search for neighbours
-    for j in range(Nf):
-        nis, nd = compute_association(x, P, z[:,i], R, j)
-        if nis < gate1 and nd < nbest: # if within gate, store nearest-neighbour
-            nbest = nd
-            jbest = j
-        elif nis < outer: # else store best nis value
-            outer = nis
-    
-    #  add nearest-neighbour to association list
-    if jbest != 0:
-        np.append(zf, z[:,i], axis = 1)
-        np.append(idf, jbest, axis = 1)
-    elif outer > gate2: # z too far to associate, but far enough to be a new feature
-        np.append(zn, [[z[0,i]], [z[1,i]]], axis = 1)
+        # search for neighbours
+        for j in range(Nf):
+            nis, nd = compute_association(x, P, z[:,i], R, j)
+            if nis < gate1 and nd < nbest: # if within gate, store nearest-neighbour
+                nbest = nd
+                jbest = j
+            elif nis < outer: # else store best nis value
+                outer = nis
+        
+        #  add nearest-neighbour to association list
+        if jbest != 0:
+            np.append(zf, z[:,i], axis = 1)
+            np.append(idf, jbest, axis = 1)
+        elif outer > gate2: # z too far to associate, but far enough to be a new feature
+            np.append(zn, [[z[0,i]], [z[1,i]]], axis = 1)
             
     return zf, idf, zn
 
