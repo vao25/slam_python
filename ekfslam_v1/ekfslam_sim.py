@@ -12,13 +12,14 @@ from data_associate import data_associate
 from update import update
 from augment import augment
 
-def ekfslam_sim(lm, wp):
+def ekfslam_sim(lm, wp, phi):
     """
-     data= ekfslam_sim(lm, wp)
+     data= ekfslam_sim(lm, wp, phi)
 
      INPUTS: 
        lm - set of landmarks
        wp - set of waypoints
+       phi - initial rotation angle
 
      OUTPUTS:
        data - a data structure containing:
@@ -40,7 +41,9 @@ def ekfslam_sim(lm, wp):
 
     # initialise states
     xtrue = np.zeros((3,1))
+    xtrue[2] = phi
     x = np.zeros((3,1))
+    x[2] = phi
     P = np.zeros((3,3))   
 
     # initialise other variables and constants
