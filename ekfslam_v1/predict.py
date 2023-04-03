@@ -1,5 +1,7 @@
 import numpy as np
 from pi_to_pi import pi_to_pi
+from math import sin
+from math import cos
 
 def predict(x, P, v, g, Q, WB, dt):    
     """
@@ -27,7 +29,7 @@ def predict(x, P, v, g, Q, WB, dt):
                    [0, 0, 1]])
     Gu = np.array([[dt*c, -vts],
                    [dt*s,  vtc],
-                   [dt*np.sin(g)/WB, v*dt*np.cos(g)/WB]])
+                   [dt*sin(g)/WB, v*dt*cos(g)/WB]])
   
     # predict covariance
     P[0:3, 0:3] = Gv.dot(P[0:3, 0:3]).dot(Gv.T) + Gu.dot(Q).dot(Gu.T)
