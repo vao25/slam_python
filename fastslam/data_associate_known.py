@@ -6,7 +6,7 @@ def data_associate_known(z, idz, table, Nf):
     
     zf = np.array([])
     idf = np.array([])
-    zn = np.array([])
+    zn = np.array([[],[]])
     idn = np.array([])
     
     # find associations (zf) and new features (zn)
@@ -19,7 +19,8 @@ def data_associate_known(z, idz, table, Nf):
             np.append(zf, z[:,i], axis = 1)
             np.append(idf, table[0,ii], axis = 1)
     
-    # add new feature IDs to lookup table        
-    table[0,idn] = Nf + np.arange(zn.shape[1]) # add new feature positions to lookup table
+    if idn:
+        # add new feature IDs to lookup table
+        table[0,idn] = Nf + np.arange(zn.shape[1]) # add new feature positions to lookup table
     return zf, idf, zn, table
 
