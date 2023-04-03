@@ -9,7 +9,7 @@ def data_associate(x, P, z, R, gate1, gate2):
     N is the number of features in the state.
     """ 
 
-    zf = np.array([])
+    zf = np.array([[],[]])
     idf = np.array([])
     zn = np.array([[],[]])
 
