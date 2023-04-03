@@ -2,7 +2,7 @@ import numpy as np
 import json
 from fastslam1_sim import fastslam1_sim
 
-with open(’file.json’, ’r’) as fr:
+with open('file.json', 'r') as fr:
     env = json.load(fr)
 
 lm = np.array([[],[]])
@@ -15,4 +15,4 @@ for i in range(len(env["wp"])):
     
 data = fastslam1_sim(lm, wp, env["x3"])
 
-
+print("Finished!")
