@@ -13,8 +13,8 @@ def data_associate_known(x, z, idz, table):
     for i in range(len(idz)):
         ii = idz[i]
         if table[0,ii] == -1: # new feature
-            np.append(zn, z[:,i], axis = 1)
-            np.append(idn, ii, axis = 1)
+            np.append(zn, [[z[0,i]], [z[1,i]]], axis = 1)
+            np.append(idn, ii)
         else:
             np.append(zf, z[:,i], axis = 1)
             np.append(idf, table[0,ii], axis = 1)
