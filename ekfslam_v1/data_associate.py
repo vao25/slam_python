@@ -11,10 +11,11 @@ def data_associate(x, P, z, R, gate1, gate2):
 
     zf = np.array([])
     idf = np.array([])
-    zn = np.array([])
+    zn = np.array([[],[]])
 
     Nxv = 3 # number of vehicle pose states
     Nf = (len(x) - Nxv) / 2 # number of features already in map
+    Nf = int(Nf)
     
     # linear search for nearest-neighbour
     for i in range(z.shape[1]):
@@ -36,7 +37,7 @@ def data_associate(x, P, z, R, gate1, gate2):
         np.append(zf, z[:,i], axis = 1)
         np.append(idf, jbest, axis = 1)
     elif outer > gate2: # z too far to associate, but far enough to be a new feature
-        np.append(zn, z[:,i], axis = 1)
+        np.append(zn, [[z[0,i]], [z[1,i]]], axis = 1)
             
     return zf, idf, zn
 
