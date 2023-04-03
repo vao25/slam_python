@@ -35,8 +35,8 @@ def data_associate(x, P, z, R, gate1, gate2):
     if jbest != 0:
         np.append(zf, z[:,i], axis = 1)
         np.append(idf, jbest, axis = 1)
-        elif outer > gate2: # z too far to associate, but far enough to be a new feature
-            np.append(zn, z[:,i], axis = 1)
+    elif outer > gate2: # z too far to associate, but far enough to be a new feature
+        np.append(zn, z[:,i], axis = 1)
             
     return zf, idf, zn
 
