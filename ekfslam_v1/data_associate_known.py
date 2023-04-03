@@ -6,7 +6,7 @@ def data_associate_known(x, z, idz, table):
     
     zf = np.array([])
     idf = np.array([])
-    zn = np.array([])
+    zn = np.array([[],[]])
     idn = np.array([])
     
     # find associations (zf) and new features (zn)
