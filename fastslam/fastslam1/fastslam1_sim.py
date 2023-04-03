@@ -117,7 +117,7 @@ class Particle:
         self.w = w
         self.xv = np.array([0,0,phi])
         self.xf = np.array([[],[]])
-        self.Pf = np.array([])
+        self.Pf = np.array([ [[],[]], [[],[]] ])
 
 
 def initialise_particles(np, phi):
