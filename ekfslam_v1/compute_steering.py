@@ -21,14 +21,14 @@ def compute_steering(x, wp, iwp, minD, G, rateG, maxG, dt):
     """
     
     # determine if current waypoint reached
-    cwp = wp[:,iwp]
+    cwp = np.copy(wp[:,iwp])
     d2 = (cwp[0]-x[0])**2 + (cwp[1]-x[1])**2
     if d2 < minD**2:
         iwp = iwp+1 # switch to next
         if iwp >= wp.shape[1]: # reached final waypoint, flag and return
             iwp = -1
             return G, iwp
-        cwp = wp[:,iwp] # next waypoint
+        cwp = np.copy(wp[:,iwp]) # next waypoint
     # compute change in G to point towards current waypoint
     deltaG = pi_to_pi(math.atan2(cwp[1]-x[1], cwp[0]-x[0]) - x[2] - G)
     # limit rate
