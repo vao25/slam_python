@@ -24,9 +24,9 @@ def get_observations(x, lm, idf, rmax):
         # bounding box, bounding line, bounding circle
         ii = np.where((np.abs(dx) < rmax) & (np.abs(dy) < rmax) & ((dx * np.cos(phi) + dy * np.sin(phi)) > 0) & ((dx ** 2 + dy ** 2) < rmax ** 2))[0]
         # Note: the bounding box test is unnecessary but illustrates a possible speedup technique as it quickly eliminates distant points. Ordering the landmark set would make this operation O(logN) rather that O(N).
-        lm = lm[:, ii]
+        lmC = np.copy(lm[:, ii])
         idf = idf[ii]
-        return lm, idf
+        return lmC, idf
 
     def compute_range_bearing(x, lm):
         # Compute exact observation
