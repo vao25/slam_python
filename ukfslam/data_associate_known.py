@@ -16,16 +16,17 @@ def data_associate_known(x, z, idz, table):
     for i in range(len(idz)):
         ii = idz[i]
         if table[0,ii] == -1: # new feature
-            np.append(zn, [[z[0,i]], [z[1,i]]], axis = 1)
-            np.append(idn, ii)
+            zn = np.append(zn, [[z[0,i]], [z[1,i]]], axis = 1)
+            idn = np.append(idn, ii)
         else:
-            np.append(zf, [[z[0,i]], [z[1,i]]], axis = 1)
-            np.append(idf, table[0,ii], axis = 1)
+            zf = np.append(zf, [[z[0,i]], [z[1,i]]], axis = 1)
+            idf = np.append(idf, table[0,ii])
     
     # add new feature IDs to lookup table        
     Nxv = 3 # number of vehicle pose states
     Nf = (len(x) - Nxv)/2 # number of features already in map
     if idn:
-        table[0,idn] = Nf  + np.arange(zn.shape[1])  # add new feature positions to lookup table
+        for j in range(zn.shape[1]):
+            table[0,idn[j]] = Nf  + j # add new feature positions to lookup table
     return zf, idf, zn, table
 
