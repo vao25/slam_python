@@ -19,7 +19,7 @@ def data_associate_known(z, idz, table, Nf):
             zf = np.append(zf, [[z[0,i]], [z[1,i]]], axis = 1)
             idf = np.append(idf, table[0,ii])
     
-    if idn:
+    if idn.size != 0:
         # add new feature IDs to lookup table
         for j in range(zn.shape[1]):
             table[0,idn[j]] = Nf  + j # add new feature positions to lookup table
