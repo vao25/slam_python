@@ -25,8 +25,8 @@ def data_associate_known(z, idz, table, Nf):
         for j in range(zn.shape[1]):
             table[0,idn[j]] = Nf  + j # add new feature positions to lookup table
             
-        if idf.size != 0:
-            idf = idf.astype(int)
+    if idf.size != 0:
+        idf = idf.astype(int)
 
     return zf, idf, zn, table
 
