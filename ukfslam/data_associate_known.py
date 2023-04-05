@@ -1,11 +1,8 @@
 import numpy as np
 
 def data_associate_known(x, z, idz, table):
-    # zf,idf,zn, table= data_associate_known(x,z,idz, table)
-    
-    # For simulations with known data-associations, this function maintains
-    # a feature/observation lookup table. It returns the updated table, the
-    # set of associated observations and the set of observations to new features.
+    # [zf,idf,zn, table]= data_associate_known(x,z,idz, table)
+    # For simulations with known data-associations, this function maintains a feature/observation lookup table. It returns the updated table, the set of associated observations and the set of observations to new features.
     
     zf = np.array([[],[]])
     idf = np.array([])
@@ -26,7 +23,12 @@ def data_associate_known(x, z, idz, table):
     Nxv = 3 # number of vehicle pose states
     Nf = (len(x) - Nxv)/2 # number of features already in map
     if idn.size != 0:
+        idn = idn.astype(int)
         for j in range(zn.shape[1]):
             table[0,idn[j]] = Nf  + j # add new feature positions to lookup table
+            
+    if idf.size != 0:
+        idf = idf.astype(int)
+            
     return zf, idf, zn, table
 
