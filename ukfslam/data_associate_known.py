@@ -1,8 +1,11 @@
 import numpy as np
 
 def data_associate_known(x, z, idz, table):
-    # [zf,idf,zn, table]= data_associate_known(x,z,idz, table)
-    # For simulations with known data-associations, this function maintains a feature/observation lookup table. It returns the updated table, the set of associated observations and the set of observations to new features.
+    # zf,idf,zn, table= data_associate_known(x,z,idz, table)
+    
+    # For simulations with known data-associations, this function maintains
+    # a feature/observation lookup table. It returns the updated table, the
+    # set of associated observations and the set of observations to new features.
     
     zf = np.array([[],[]])
     idf = np.array([])
