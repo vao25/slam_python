@@ -22,7 +22,7 @@ def data_associate_known(x, z, idz, table):
     # add new feature IDs to lookup table        
     Nxv = 3 # number of vehicle pose states
     Nf = (len(x) - Nxv)/2 # number of features already in map
-    if idn:
+    if idn.size != 0:
         for j in range(zn.shape[1]):
             table[0,idn[j]] = Nf  + j # add new feature positions to lookup table
     return zf, idf, zn, table
