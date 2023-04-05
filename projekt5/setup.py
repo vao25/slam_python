@@ -17,6 +17,7 @@ grey = (120,120,120)
 white = (255,255,255)
 red = (255,0,0)
 blue = (0,0,255)
+pink = (255,0,255)
 
 pygame.init()
 pygame.display.set_caption("SLAM environment-making GUI")
@@ -130,10 +131,15 @@ while True:
     screen.blit(waypointsT, (waypoints[0], waypoints[1]))
     screen.blit(robotT, (robot[0], robot[1]))
     
+    xwp0 = center[0]
+    ywp0 = center[1]
     for waypoint in mapa.wp:
         xwp = center[0] + waypoint[0]
         ywp = center[1] - waypoint[1]
         pygame.draw.circle(screen, red, (xwp, ywp), 5)
+        pygame.draw.line(screen, pink, (xwp0, ywp0), (xwp, ywp), 2)
+        xwp0 = xwp
+        ywp0 = ywp
         
     for landmark in mapa.lm:
         xlm = center[0] + landmark[0] - 5
