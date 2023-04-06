@@ -22,5 +22,6 @@ def stratified_resample(w):
         while ctr < l and select[ctr] < w[i]:
             keep[ctr] = i
             ctr += 1
+    keep = keep.astype(int)
             
     return keep, Neff
