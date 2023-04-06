@@ -2,14 +2,19 @@ import numpy as np
 from pi_to_pi import pi_to_pi
 
 def compute_jacobians(particle, idf, R):
-    xv = particle.xv
-    xf = particle.xf[:,idf]
-    Pf = particle.Pf[:,:,idf]
-    
-    zp = np.zeros((2,len(idf)))
-    Hv = np.zeros((2,3,len(idf)))
-    Hf = np.zeros((2,2,len(idf)))
-    Sf = np.zeros((2,2,len(idf)))
+    zp = None
+    Hv = None
+    Hf = None
+    Sf = None
+    if idf.size != 0:
+        xv = particle.xv
+        xf = particle.xf[:,idf]
+        Pf = particle.Pf[:,:,idf]
+        
+        zp = np.zeros((2,len(idf)))
+        Hv = np.zeros((2,3,len(idf)))
+        Hf = np.zeros((2,2,len(idf)))
+        Sf = np.zeros((2,2,len(idf)))
     
     for i in range(len(idf)):
         dx = xf[0,i] - xv[0]
