@@ -15,7 +15,9 @@ def add_feature(particle, z, R):
         s = sin(y[0])
         c = cos(y[0])
         
-        xf[:,i] = np.array([[xv[0] + r*c], [xv[1] + r*s]])
+        e = xv[0] + r*c
+        f = xv[1] + r*s
+        xf[:,i] = np.array([e[0], f[0]])
         
         Gz = np.array([[c, -r*s], [s,  r*c]])
         Pf[:,:,i] = np.dot(np.dot(Gz, R), Gz.T)
