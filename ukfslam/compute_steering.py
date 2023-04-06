@@ -39,5 +39,6 @@ def compute_steering(x, wp, iwp, minD, G, rateG, maxG, dt):
     G = G+deltaG
     if abs(G) > maxG:
         G = np.sign(G)*maxG
+    G = G[0]
     return G, iwp
 
