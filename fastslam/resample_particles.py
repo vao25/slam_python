@@ -16,7 +16,8 @@ def resample_particles(particles, Nmin, doresample):
     
     keep, Neff = stratified_resample(w)
     if Neff < Nmin and doresample == 1:
-        particles = particles[keep]
+        for i in range(N):
+            particles[i] = particles[keep[i]]
         for i in range(N):
             particles[i].w = 1/N
     return particles
