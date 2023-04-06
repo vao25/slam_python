@@ -19,10 +19,14 @@ def compute_jacobians(particle, idf, R):
     for i in range(len(idf)):
         dx = xf[0,i] - xv[0]
         dy = xf[1,i] - xv[1]
+        dx = dx[0]
+        dy = dy[0]
         d2 = dx**2 + dy**2
         d = np.sqrt(d2)
+        a = pi_to_pi(np.arctan2(dy,dx) - xv[2])
+        a = a[0]
         
-        zp[:,i] = np.array([d, pi_to_pi(np.arctan2(dy,dx) - xv[2])]) # predicted observation
+        zp[:,i] = np.array([d, a]) # predicted observation
         
         Hv[:,:,i] = np.array([[-dx/d, -dy/d, 0], # Jacobian wrt vehicle states
                               [dy/d2, -dx/d2, -1]])
