@@ -7,7 +7,7 @@ from math import sin
 def predict(particle, V, G, Q, WB, dt, addrandom):
     # add random noise to controls
     if addrandom == 1:
-        VG = multivariate_gauss([V, G], Q, 1)
+        VG = multivariate_gauss(np.array([[V], [G]]), Q, 1)
         V = VG[0]
         G = VG[1]
     
