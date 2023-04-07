@@ -7,4 +7,4 @@ def add_control_noise(V,G,Q, addnoise):
         C= multivariate_gauss(np.array([[V],[G]]),Q, 1) # if Q might be correlated
         V= C[0]
         G= C[1]
-    return V,G
+    return V[0],G[0]
