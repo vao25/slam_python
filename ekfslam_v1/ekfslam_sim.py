@@ -54,11 +54,11 @@ def ekfslam_sim(lm, wp, phi):
     iwp = 0
     G = 0
     data = initialise_store(x,P,xtrue)
-    QE = c.Q
-    RE = c.R
+    QE = np.copy(c.Q)
+    RE = np.copy(c.R)
     if c.SWITCH_INFLATE_NOISE:
-        QE = 2*c.Q
-        RE = 8*c.R
+        QE = np.copy(2*c.Q)
+        RE = np.copy(8*c.R)
     if c.SWITCH_SEED_RANDOM:
         np.random.seed(c.SWITCH_SEED_RANDOM)
         
