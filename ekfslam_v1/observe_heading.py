@@ -1,4 +1,5 @@
 import numpy as np
+from math import pi
 from pi_to_pi import pi_to_pi
 from KF_joseph_update import KF_joseph_update
 
@@ -13,7 +14,7 @@ def observe_heading(x,P, phi, useheading):
 
     H= np.zeros(len(x))
     H[2]= 1
-    v= pi_to_pi(phi - x[2])
+    v= pi_to_pi(phi - x[2])[0]
 
     [x,P]= KF_joseph_update(x,P,v, sigmaPhi**2,H)
     return x,P
