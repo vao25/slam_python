@@ -23,7 +23,7 @@ def feature_update(particle, z, idf, R):
         Pfi = np.copy(Pf[:,:,i])
         xfi = np.copy(xf[:,i])
         
-        xf[:,i], Pf[:,:,i] = KF_joseph_update(xfi, Pfi, vi, R, Hfi)
+        xf[:,i], Pf[:,:,i] = KF_cholesky_update(xfi, Pfi, vi, R, Hfi)
         
     if idf.size != 0:
         particle.xf[:,idf] = xf
