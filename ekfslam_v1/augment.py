@@ -1,4 +1,5 @@
 import numpy as np
+from math import sin, cos
 
 def augment(x,P,z,R):
     """
@@ -25,11 +26,11 @@ def add_one_z(x,P,z,R):
     l= len(x)
     r= z[0]
     b= z[1]
-    s= np.sin(x[2]+b)
-    c= np.cos(x[2]+b)
+    s= sin(x[2][0] + b)
+    c= cos(x[2][0] + b)
     
     # augment x
-    x= np.vstack((x,np.array([[x[0] + r*c],[x[1] + r*s]])))
+    x= np.vstack((x,np.array([[x[0][0] + r*c],[x[1][0] + r*s]])))
     
     # jacobians
     Gv= np.array([[1,0,-r*s],[0,1,r*c]])
@@ -39,9 +40,9 @@ def add_one_z(x,P,z,R):
     rng= np.arange(l,l+2)
     P[np.ix_(rng,rng)]= Gv.dot(P[0:3,0:3]).dot(Gv.T) + Gz.dot(R).dot(Gz.T) # feature cov
     P[np.ix_(rng,np.arange(3))]= Gv.dot(P[0:3,0:3]) # vehicle to feature xcorr
-    P[np.ix_(np.arange(3),rng)]= P[np.ix_(rng,np.arange(3))].T
+    P[np.ix_(np.arange(3),rng)]= np.copy(P[np.ix_(rng,np.arange(3))].T)
     if l>3:
         rnm= np.arange(3,l)
         P[np.ix_(rng,rnm)]= Gv.dot(P[0:3,rnm]) # map to feature xcorr
-        P[np.ix_(rnm,rng)]= P[np.ix_(rng,rnm)].T
+        P[np.ix_(rnm,rng)]= np.copy(P[np.ix_(rng,rnm)].T)
     return x,P
