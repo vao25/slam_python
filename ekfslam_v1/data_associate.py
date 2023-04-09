@@ -19,7 +19,7 @@ def data_associate(x, P, z, R, gate1, gate2):
     
     # linear search for nearest-neighbour
     for i in range(z.shape[1]):
-        jbest = 0
+        jbest = -1
         nbest = float('inf')
         outer = float('inf')
     
@@ -33,11 +33,11 @@ def data_associate(x, P, z, R, gate1, gate2):
                 outer = nis
         
         #  add nearest-neighbour to association list
-        if jbest != 0:
-            np.append(zf, z[:,i], axis = 1)
-            np.append(idf, jbest, axis = 1)
+        if jbest != -1:
+            zf = np.append(zf, [[z[0,i]], [z[1,i]]], axis = 1)
+            idf = np.append(idf, jbest)
         elif outer > gate2: # z too far to associate, but far enough to be a new feature
-            np.append(zn, [[z[0,i]], [z[1,i]]], axis = 1)
+            zn = np.append(zn, [[z[0,i]], [z[1,i]]], axis = 1)
             
     return zf, idf, zn
 
@@ -46,9 +46,9 @@ def compute_association(x, P, z, R, idf):
     zp, H = observe_model(x, idf)
     v = z - zp
     v[1] = pi_to_pi(v[1])
-    S = H * P * H.T + R
+    S = np.dot(np.dot(H, P), H.T) + R
     
-    nis = v.T * np.linalg.inv(S) * v
+    nis = np.dot(np.dot(v.T, np.linalg.inv(S)), v)
     nd = nis + np.log(np.linalg.det(S))
     
     return nis, nd
