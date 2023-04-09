@@ -78,7 +78,7 @@ def ekfslam_sim(lm, wp, phi):
         x,P= predict (x,P, Vn,Gn,QE, c.WHEELBASE,dt)
     
         # if heading known, observe heading
-        x,P= observe_heading(x,P, xtrue[2], c.SWITCH_HEADING_KNOWN)
+        x,P= observe_heading(x,P, xtrue[2][0], c.SWITCH_HEADING_KNOWN)
     
         # EKF update step
         dtsum= dtsum + dt
@@ -106,13 +106,13 @@ def initialise_store(x, P, xtrue):
     data = {}
     data['i'] = 0
     data['path'] = np.zeros((3, 1))
-    data['path'][0,0] = x[0]
-    data['path'][1,0] = x[1]
-    data['path'][2,0] = x[2]
+    data['path'][0,0] = x[0][0]
+    data['path'][1,0] = x[1][0]
+    data['path'][2,0] = x[2][0]
     data['true'] = np.zeros((3, 1))
-    data['true'][0,0] = xtrue[0]
-    data['true'][1,0] = xtrue[1]
-    data['true'][2,0] = xtrue[2]
+    data['true'][0,0] = xtrue[0][0]
+    data['true'][1,0] = xtrue[1][0]
+    data['true'][2,0] = xtrue[2][0]
     data['state'] = [{}]
     data['state'][0]['x'] = np.copy(x)
     #data['state'][0]['P'] = P
