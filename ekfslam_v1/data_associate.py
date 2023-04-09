@@ -38,7 +38,9 @@ def data_associate(x, P, z, R, gate1, gate2):
             idf = np.append(idf, jbest)
         elif outer > gate2: # z too far to associate, but far enough to be a new feature
             zn = np.append(zn, [[z[0,i]], [z[1,i]]], axis = 1)
-            
+    
+    if idf.size != 0:
+        idf = idf.astype(int)
     return zf, idf, zn
 
 def compute_association(x, P, z, R, idf):
