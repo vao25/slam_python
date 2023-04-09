@@ -25,8 +25,8 @@ def data_associate(x, P, z, R, gate1, gate2):
     
         # search for neighbours
         for j in range(Nf):
-            nis, nd = compute_association(x, P, z[:,i], R, j)
-            if nis < gate1 and nd < nbest: # if within gate, store nearest-neighbour
+            nis, nd = compute_association(x, P, np.array([[z[0,i]],[z[1,i]]]), R, j)
+            if (nis < gate1) and (nd < nbest): # if within gate, store nearest-neighbour
                 nbest = nd
                 jbest = j
             elif nis < outer: # else store best nis value
