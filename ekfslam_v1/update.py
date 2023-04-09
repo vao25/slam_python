@@ -2,6 +2,7 @@ import numpy as np
 from pi_to_pi import pi_to_pi
 from observe_model import observe_model
 from KF_cholesky_update import KF_cholesky_update
+from KF_joseph_update import KF_joseph_update
 
 def update(x,P,z,R,idf, batch):
     """
@@ -41,8 +42,8 @@ def batch_update(x,P,z,R,idf):
         v[i1:i2]=      np.array([[z[0,i]-zp[0][0]],
                               pi_to_pi(z[1,i]-zp[1])])
         RR[i1:i2,i1:i2]= np.copy(R)
-        
-    x,P= KF_cholesky_update(x,P,v,RR,H)
+    
+    x,P= KF_joseph_update(x,P,v,RR,H)
     return x,P
 
 #
@@ -56,5 +57,5 @@ def single_update(x,P,z,R,idf):
         v= np.array([[z[0,i]-zp[0][0]],
                      pi_to_pi(z[1,i]-zp[1])])
     
-        x,P= KF_cholesky_update(x,P,v,R,H)
+        x,P= KF_joseph_update(x,P,v,R,H)
     return x,P
