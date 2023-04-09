@@ -127,12 +127,12 @@ def store_data(data, x, P, xtrue):
         data['true'] = np.hstack((data['true'], np.zeros((3, CHUNK))))
     i = data['i'] + 1
     data['i'] = i
-    data['path'][0,i-1] = x[0]
-    data['path'][1,i-1] = x[1]
-    data['path'][2,i-1] = x[2]
-    data['true'][0,i-1] = xtrue[0]
-    data['true'][1,i-1] = xtrue[1]
-    data['true'][2,i-1] = xtrue[2]
+    data['path'][0,i-1] = x[0][0]
+    data['path'][1,i-1] = x[1][0]
+    data['path'][2,i-1] = x[2][0]
+    data['true'][0,i-1] = xtrue[0][0]
+    data['true'][1,i-1] = xtrue[1][0]
+    data['true'][2,i-1] = xtrue[2][0]
     data['state'].append({})
     data['state'][i-1]['x'] = np.copy(x)
     #data['state'][i-1]['P'] = P
