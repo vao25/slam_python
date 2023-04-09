@@ -30,7 +30,7 @@ def compute_steering(x, wp, iwp, minD, G, rateG, maxG, dt):
             return G, iwp
         cwp = np.copy(wp[:,iwp]) # next waypoint
     # compute change in G to point towards current waypoint
-    deltaG = pi_to_pi(math.atan2(cwp[1]-x[1][0], cwp[0]-x[0][0]) - x[2][0] - G)
+    deltaG = pi_to_pi(math.atan2(cwp[1]-x[1][0], cwp[0]-x[0][0]) - x[2] - G)
     # limit rate
     maxDelta = rateG*dt
     if abs(deltaG) > maxDelta:
