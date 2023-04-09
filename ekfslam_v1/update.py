@@ -38,9 +38,9 @@ def batch_update(x,P,z,R,idf):
         i2= 2*i + 2
         zp,H[i1:i2,:]= observe_model(x, idf[i])
     
-        v[i1:i2]=      np.array([[z[0,i]-zp[0]],
-                              [pi_to_pi(z[1,i]-zp[1])]])
-        RR[i1:i2,i1:i2]= R
+        v[i1:i2]=      np.array([[z[0,i]-zp[0][0]],
+                              pi_to_pi(z[1,i]-zp[1])])
+        RR[i1:i2,i1:i2]= np.copy(R)
         
     x,P= KF_cholesky_update(x,P,v,RR,H)
     return x,P
@@ -53,8 +53,8 @@ def single_update(x,P,z,R,idf):
     for i in range(lenz):
         zp,H= observe_model(x, idf[i])
     
-        v= np.array([[z[0,i]-zp[0]],
-                     [pi_to_pi(z[1,i]-zp[1])]])
+        v= np.array([[z[0,i]-zp[0][0]],
+                     pi_to_pi(z[1,i]-zp[1])])
     
-        x,P= KF_cholesky_update(x,P,v,RR,H)
+        x,P= KF_cholesky_update(x,P,v,R,H)
     return x,P
