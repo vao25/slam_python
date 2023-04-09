@@ -24,6 +24,7 @@ def augment(x,P,z,R):
 
 def add_one_z(x,P,z,R):
     l= len(x)
+    lP = P.shape[0]
     r= z[0]
     b= z[1]
     s= sin(x[2][0] + b)
@@ -37,6 +38,8 @@ def add_one_z(x,P,z,R):
     Gz= np.array([[c,-r*s],[s,r*c]])
     
     # augment P
+    P = np.vstack((P, np.zeros((2,lP))))
+    P = np.hstack((P, np.zeros((lP+2,2))))
     rng= np.arange(l,l+2)
     P[np.ix_(rng,rng)]= Gv.dot(P[0:3,0:3]).dot(Gv.T) + Gz.dot(R).dot(Gz.T) # feature cov
     P[np.ix_(rng,np.arange(3))]= Gv.dot(P[0:3,0:3]) # vehicle to feature xcorr
