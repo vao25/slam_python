@@ -104,7 +104,7 @@ def ekfslam_sim(lm, wp, phi):
 def initialise_store(x, P, xtrue):
     # offline storage initialisation
     data = {}
-    data['i'] = 0
+    data['i'] = 1
     data['path'] = np.zeros((3, 1))
     data['path'][0,0] = x[0][0]
     data['path'][1,0] = x[1][0]
