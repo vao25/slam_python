@@ -18,8 +18,8 @@ def predict(x, P, v, g, Q, WB, dt):
        xn, Pn - predicted state and covariance
     """
     
-    s = np.sin(g + x[2])
-    c = np.cos(g + x[2])
+    s = sin(g + x[2][0])
+    c = cos(g + x[2][0])
     vts = v * dt * s
     vtc = v * dt * c
     
@@ -38,8 +38,8 @@ def predict(x, P, v, g, Q, WB, dt):
         P[3:, 0:3] = P[0:3, 3:].T
     
     # predict state
-    x[0:3] = [x[0] + vtc, 
-              x[1] + vts,
-              pi_to_pi(x[2]+ v*dt*np.sin(g)/WB)]
+    x[0:3] = np.array([[x[0][0] + vtc], 
+              [x[1][0] + vts],
+              pi_to_pi(x[2]+ v*dt*np.sin(g)/WB)])
     
     return x, P
