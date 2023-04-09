@@ -53,7 +53,7 @@ def ekfslam_sim(lm, wp, phi):
     da_table = np.zeros((1, lm.shape[1])) - 1
     iwp = 0
     G = 0
-    data = initialise_store(x,P,x)
+    data = initialise_store(x,P,xtrue)
     QE = c.Q
     RE = c.R
     if c.SWITCH_INFLATE_NOISE:
