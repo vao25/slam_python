@@ -15,7 +15,7 @@ def observe_model(x, idf):
     """
     
     Nxv = 3 # number of vehicle pose states
-    fpos = Nxv + idf*2 - 1 # position of xf in state
+    fpos = Nxv + idf*2 # position of xf in state
 
     # auxiliary values
     dx = x[fpos,:]  - x[0,:]
