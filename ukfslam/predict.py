@@ -12,8 +12,8 @@ def predict(v, g, Q, WB, dt):
     XX, PX = unscented_transform(vehiclemod, vehiclediff, XX, PX, WB, dt)
 
 def vehiclemod(x, WB, dt):
-    V = x[-2,:]
-    G = x[-1,:]
+    V = np.copy(x[-2,:])
+    G = np.copy(x[-1,:])
     x = x[:-2,:]
     x[:3,:] = vehicle_model(x, V, G, WB, dt)
     return x
