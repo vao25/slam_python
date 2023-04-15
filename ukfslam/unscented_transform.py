@@ -30,3 +30,11 @@ def unscented_transform(func, dfunc, x, P, *args):
     # Note: if x is a matrix of column vectors, then x*x' produces the sum of outer-products.
 
     return y, Y
+
+def default_dfunc(y1, y2):
+    e = y1 - y2
+    return e
+
+def repvec(x, N):
+    x = x[:, np.ones((1, N))]
+    return x
