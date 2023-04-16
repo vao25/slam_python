@@ -55,6 +55,35 @@ def unscented_update(zfunc, dzfunc, x, P, z, R, *args):
     # Create samples
     Ps = sqrt_posdef(P) * sqrt(scale)
     ss = np.concatenate((np.concatenate((x, repvec(x,D) + Ps), axis=1), repvec(x,D) - Ps), axis=1)
+    
+    # Transform samples according to function 'zfunc' to obtain the predicted observation samples
+    if dzfunc is None:
+        dzfunc = default_dfunc
+    zs = zfunc(ss, *args)  # compute (possibly discontinuous) transform
+    zz = repvec(z,N)
+    dz = dzfunc(zz, zs)  # compute correct residual
+    zs = zz - dz  # offset zs from z according to correct residual
+
+    # Calculate predicted observation mean
+    zm = (kappa*zs[:,1] + 0.5*np.sum(zs[:,1:], axis=1)) / scale
+
+    # Calculate observation covariance and the state-observation correlation matrix
+    dx = ss - repvec(x,N)
+    dz = zs - repvec(zm,N)
+    Pxz = (2*kappa*dx[:,1]*dz[:,1].T + dx[:,2:]*dz[:,2:].T) / (2*scale)
+    Pzz = (2*kappa*dz[:,1]*dz[:,1].T + dz[:,2:]*dz[:,2:].T) / (2*scale)
+
+    # Compute Kalman gain
+    S = Pzz + R
+    Sc  = chol(S)  # note: S = Sc'*Sc
+    Sci = inv(Sc)  # note: inv(S) = Sci*Sci'
+    Wc = Pxz * Sci
+    W  = Wc * Sci.T
+
+    # Perform update
+    x = x + W*(z - zm)
+    P = P - Wc*Wc.T
+    PSD_check = chol(P)
 
 
 def default_dfunc(y1, y2):
