@@ -1,3 +1,76 @@
+import numpy as np
+import configfile as c # ** USE THIS FILE TO CONFIGURE THE UKF-SLAM **
+from compute_steering import compute_steering
+from vehicle_model import vehicle_model
+from add_control_noise import add_control_noise
+
+def ukfslam_sim(lm, wp, phi):
+    # Initialise states and other global variables
+    global XX, PX
+    xtrue = np.zeros((3,1))
+    xtrue[2] = phi
+    XX = np.zeros((3,1))
+    XX[2] = phi
+    PX = np.eye(3)*np.finfo(float).eps
+    data = initialise_store(XX,PX,xtrue) # stored data for off-line
+
+    # Initialise other variables and constants
+    dt = c.DT_CONTROLS # change in time between predicts
+    dtsum = 0 # change in time since last observation
+    ftag = np.arange(lm.shape[1]) # identifier for each landmark
+    da_table = np.zeros((1, lm.shape[1])) - 1 # data association table 
+    iwp = 0 # index to first waypoint 
+    G = 0 # initial steer angle
+    QE = np.copy(c.Q)
+    RE = np.copy(c.R)
+    if SWITCH_INFLATE_NOISE:
+        QE = np.copy(2*c.Q)
+        RE = np.copy(2*c.R)
+    if SWITCH_SEED_RANDOM:
+        np.random.seed(SWITCH_SEED_RANDOM)
+
+    NUMBER_LOOPS = c.NUMBER_LOOPS
+
+    # Main loop 
+    while iwp != -1:
+
+        # Compute true data
+        G,iwp = compute_steering(xtrue, wp, iwp, c.AT_WAYPOINT, G, c.RATEG, c.MAXG, dt)
+        if iwp==-1 and NUMBER_LOOPS > 1:
+            iwp=0
+            NUMBER_LOOPS= NUMBER_LOOPS-1 # perform loops: if final waypoint reached, go back to first
+        xtrue = vehicle_model(xtrue, c.V,G, c.WHEELBASE,dt)
+        Vn,Gn = add_control_noise(c.V,G,c.Q, c.SWITCH_CONTROL_NOISE)
+
+        # UKF predict step
+        predict (Vn,Gn,QE, c.WHEELBASE,dt)
+
+        # If heading known, observe heading
+        observe_heading(xtrue[2][0], c.SWITCH_HEADING_KNOWN)
+
+        # Incorporate observation, (available every DT_OBSERVE seconds)
+        dtsum = dtsum + dt
+        if dtsum >= DT_OBSERVE:
+            dtsum = 0
+
+            # Compute true data
+            z,ftag_visible = get_observations(xtrue, lm, ftag, c.MAX_RANGE)
+            z = add_observation_noise(z,c.R, c.SWITCH_SENSOR_NOISE)
+
+            # UKF update step
+            zf,idf,zn, da_table = data_associate_known(XX,z,ftag_visible, da_table)
+
+            update(zf,RE,idf) 
+            augment(zn,RE) 
+
+        # Offline data store
+        data = store_data(data, XX, PX, xtrue)
+
+    # end of main loop
+    data = finalise_data(data)
+    return data
+
+
 def initialise_store(x, P, xtrue):
     # offline storage initialisation
     data = {}
