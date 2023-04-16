@@ -94,5 +94,5 @@ def repvec(x, N):
     a = np.copy(x)
     x = np.copy(x)
     for i in range(N-1):
-        x = np.hstack((np.copy(x),a))
+        x = np.hstack((np.copy(x),np.copy(a)))
     return x 
