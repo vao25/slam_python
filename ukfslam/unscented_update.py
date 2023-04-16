@@ -70,8 +70,8 @@ def unscented_update(zfunc, dzfunc, x, P, z, R, *args):
     # Calculate observation covariance and the state-observation correlation matrix
     dx = ss - repvec(x,N)
     dz = zs - repvec(zm,N)
-    Pxz = (2*kappa*np.dot(dx[:,0], dz[:,0].T) + np.dot(dx[:,1:], dz[:,1:].T)) / (2*scale)
-    Pzz = (2*kappa*np.dot(dz[:,0], dz[:,0].T) + np.dot(dz[:,1:], dz[:,1:].T)) / (2*scale)
+    Pxz = (2*kappa*np.dot(dx[:,[0]], dz[:,[0]].T) + np.dot(dx[:,1:], dz[:,1:].T)) / (2*scale)
+    Pzz = (2*kappa*np.dot(dz[:,[0]], dz[:,[0]].T) + np.dot(dz[:,1:], dz[:,1:].T)) / (2*scale)
 
     # Compute Kalman gain
     S = Pzz + R
@@ -84,6 +84,8 @@ def unscented_update(zfunc, dzfunc, x, P, z, R, *args):
     x = x + np.dot(W, (z - zm))
     P = P - np.dot(Wc, Wc.T)
     PSD_check = np.linalg.cholesky(P)
+    
+    return x, P
 
 
 def default_dfunc(y1, y2):
