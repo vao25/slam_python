@@ -70,20 +70,20 @@ def unscented_update(zfunc, dzfunc, x, P, z, R, *args):
     # Calculate observation covariance and the state-observation correlation matrix
     dx = ss - repvec(x,N)
     dz = zs - repvec(zm,N)
-    Pxz = (2*kappa*dx[:,1]*dz[:,1].T + dx[:,2:]*dz[:,2:].T) / (2*scale)
-    Pzz = (2*kappa*dz[:,1]*dz[:,1].T + dz[:,2:]*dz[:,2:].T) / (2*scale)
+    Pxz = (2*kappa*np.dot(dx[:,0], dz[:,0].T) + np.dot(dx[:,1:], dz[:,1:].T)) / (2*scale)
+    Pzz = (2*kappa*np.dot(dz[:,0], dz[:,0].T) + np.dot(dz[:,1:], dz[:,1:].T)) / (2*scale)
 
     # Compute Kalman gain
     S = Pzz + R
-    Sc  = chol(S)  # note: S = Sc'*Sc
-    Sci = inv(Sc)  # note: inv(S) = Sci*Sci'
-    Wc = Pxz * Sci
-    W  = Wc * Sci.T
+    Sc  = np.linalg.cholesky(S)  # note: S = Sc'*Sc
+    Sci = np.linalg.inv(Sc)  # note: inv(S) = Sci*Sci'
+    Wc = np.dot(Pxz, Sci)
+    W  = np.dot(Wc, Sci.T)
 
     # Perform update
-    x = x + W*(z - zm)
-    P = P - Wc*Wc.T
-    PSD_check = chol(P)
+    x = x + np.dot(W, (z - zm))
+    P = P - np.dot(Wc, Wc.T)
+    PSD_check = np.linalg.cholesky(P)
 
 
 def default_dfunc(y1, y2):
