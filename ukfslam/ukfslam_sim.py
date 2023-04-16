@@ -30,7 +30,7 @@ def ukfslam_sim(lm, wp, phi):
     G = 0 # initial steer angle
     QE = np.copy(c.Q)
     RE = np.copy(c.R)
-    if SWITCH_INFLATE_NOISE:
+    if c.SWITCH_INFLATE_NOISE:
         QE = np.copy(2*c.Q)
         RE = np.copy(2*c.R)
     if SWITCH_SEED_RANDOM:
