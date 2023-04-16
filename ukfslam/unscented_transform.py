@@ -68,11 +68,11 @@ def unscented_transform(func, dfunc, x, P, *args):
 
     # Calculate predicted observation mean
     idx = np.arange(1,N)
-    y = (2*kappa*ys[:,0] + np.sum(ys[:,idx], axis=1)) / (2*scale)
+    y = (2*kappa*ys[:,[0]] + np.sum(ys[:,idx], axis=1)) / (2*scale)
 
     # Calculate new unscented covariance
     dy = ys - repvec(y,N)
-    Y = (2*kappa*np.dot(dy[:,0],np.transpose(dy[:,0])) + np.dot(dy[:,idx],np.transpose(dy[:,idx]))) / (2*scale)
+    Y = (2*kappa*np.dot(dy[:,[0]],np.transpose(dy[:,[0]])) + np.dot(dy[:,idx],np.transpose(dy[:,idx]))) / (2*scale)
     # Note: if x is a matrix of column vectors, then x*x' produces the sum of outer-products.
 
     return y, Y
