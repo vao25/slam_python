@@ -33,8 +33,8 @@ def ukfslam_sim(lm, wp, phi):
     if c.SWITCH_INFLATE_NOISE:
         QE = np.copy(2*c.Q)
         RE = np.copy(2*c.R)
-    if SWITCH_SEED_RANDOM:
-        np.random.seed(SWITCH_SEED_RANDOM)
+    if c.SWITCH_SEED_RANDOM:
+        np.random.seed(c.SWITCH_SEED_RANDOM)
 
     NUMBER_LOOPS = c.NUMBER_LOOPS
 
