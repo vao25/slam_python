@@ -3,6 +3,13 @@ import configfile as c # ** USE THIS FILE TO CONFIGURE THE UKF-SLAM **
 from compute_steering import compute_steering
 from vehicle_model import vehicle_model
 from add_control_noise import add_control_noise
+from predict import predict
+from observe_heading import observe_heading
+from get_observations import get_observations
+from add_observation_noise import add_observation_noise
+from data_associate_known import data_associate_known
+from update import update
+from augment import augment
 
 def ukfslam_sim(lm, wp, phi):
     # Initialise states and other global variables
