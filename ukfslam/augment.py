@@ -6,7 +6,7 @@ def augment(XX, PX, z, R):
     # add new features to state
     for i in range(z.shape[1]):
         XX, PX = add_one_z(XX, PX, z[:,i], np.copy(R))
-        return XX, PX
+    return XX, PX
 
 def add_one_z(XX, PX, z, R):
     XX = np.vstack((XX, np.array([[z[0]],[z[1]]])))
