@@ -66,7 +66,7 @@ def unscented_update(zfunc, dzfunc, x, P, z, R, *args):
     zs = zz - dz  # offset zs from z according to correct residual
 
     # Calculate predicted observation mean
-    zm = (kappa*zs[:,[1]] + 0.5*np.sum(zs[:,1:], axis=1)) / scale
+    zm = (kappa*zs[:,[1]] + 0.5* (np.atleast_2d(np.sum(zs[:,1:], axis=1)).T) ) / scale
 
     # Calculate observation covariance and the state-observation correlation matrix
     dx = ss - repvec(x,N)
