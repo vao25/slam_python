@@ -56,7 +56,7 @@ def ukfslam_sim(lm, wp, phi):
 
         # Incorporate observation, (available every DT_OBSERVE seconds)
         dtsum = dtsum + dt
-        if dtsum >= DT_OBSERVE:
+        if dtsum >= c.DT_OBSERVE:
             dtsum = 0
 
             # Compute true data
