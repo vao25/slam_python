@@ -2,16 +2,17 @@ from scipy.linalg import block_diag
 import numpy as np
 from unscented_transform import unscented_transform
 
-def augment(z,R):
+def augment(XX, PX, z, R):
     # add new features to state
     for i in range(z.shape[1]):
-        add_one_z(z[:,i],np.copy(R))
+        XX, PX = add_one_z(XX, PX, z[:,i], np.copy(R))
+        return XX, PX
 
-def add_one_z(z,R):
-    global XX, PX
+def add_one_z(XX, PX, z, R):
     XX = np.vstack((XX, np.array([[z[0]],[z[1]]])))
     PX = block_diag(PX, R)
     XX,PX = unscented_transform(augment_model, None, XX,PX)
+    return XX, PX
 
 def augment_model(x):
     phi = np.copy(x[2, :])
