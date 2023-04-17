@@ -13,7 +13,6 @@ from augment import augment
 
 def ukfslam_sim(lm, wp, phi):
     # Initialise states and other global variables
-    global XX, PX
     xtrue = np.zeros((3,1))
     xtrue[2] = phi
     XX = np.zeros((3,1))
@@ -50,10 +49,10 @@ def ukfslam_sim(lm, wp, phi):
         Vn,Gn = add_control_noise(c.V,G,c.Q, c.SWITCH_CONTROL_NOISE)
 
         # UKF predict step
-        predict (Vn,Gn,QE, c.WHEELBASE,dt)
+        XX, PX = predict (XX, PX, Vn,Gn,QE, c.WHEELBASE,dt)
 
         # If heading known, observe heading
-        observe_heading(xtrue[2][0], c.SWITCH_HEADING_KNOWN)
+        XX, PX = observe_heading(XX, PX, xtrue[2][0], c.SWITCH_HEADING_KNOWN)
 
         # Incorporate observation, (available every DT_OBSERVE seconds)
         dtsum = dtsum + dt
@@ -67,8 +66,8 @@ def ukfslam_sim(lm, wp, phi):
             # UKF update step
             zf,idf,zn, da_table = data_associate_known(XX,z,ftag_visible, da_table)
 
-            update(zf,RE,idf) 
-            augment(zn,RE) 
+            XX, PX = update(XX, PX, zf,RE,idf) 
+            XX, PX = augment(XX, PX, zn,RE) 
 
         # Offline data store
         data = store_data(data, XX, PX, xtrue)
