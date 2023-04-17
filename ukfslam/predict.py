@@ -6,7 +6,7 @@ from vehicle_model import vehicle_model
 
 
 def predict(XX, PX, v, g, Q, WB, dt):
-    XX = np.vstack(XX, np.array([[v], [g]]))
+    XX = np.vstack((XX, np.array([[v], [g]])))
     PX = block_diag(PX, Q)
     XX, PX = unscented_transform(vehiclemod, vehiclediff, XX, PX, WB, dt)
     return XX, PX
