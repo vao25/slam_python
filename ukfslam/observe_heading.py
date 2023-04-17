@@ -8,7 +8,7 @@ def observe_heading(XX, PX, phi, useheading):
     # with fixed measurement noise: sigmaPhi
     
     if useheading == 0:
-        return
+        return XX, PX
     #sigmaPhi = 1 * np.pi / 180 # radians, heading uncertainty
     sigmaPhi = 0.01 * np.pi / 180 # radians, heading uncertainty
     
