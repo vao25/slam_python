@@ -3,10 +3,9 @@ from pi_to_pi import pi_to_pi
 from KF_cholesky_update import KF_cholesky_update
 
 
-def observe_heading(phi, useheading):
+def observe_heading(XX, PX, phi, useheading):
     # Perform state update for a given heading measurement, phi,
     # with fixed measurement noise: sigmaPhi
-    global XX, PX
     
     if useheading == 0:
         return
@@ -18,4 +17,5 @@ def observe_heading(phi, useheading):
     v = pi_to_pi(phi - XX[2])[0]
     
     XX, PX = KF_cholesky_update(XX, PX, v, sigmaPhi**2, H)
+    return XX, PX
 
