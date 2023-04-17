@@ -5,11 +5,11 @@ from pi_to_pi import pi_to_pi
 from vehicle_model import vehicle_model
 
 
-def predict(v, g, Q, WB, dt):
-    global XX, PX
+def predict(XX, PX, v, g, Q, WB, dt):
     XX = np.vstack(XX, np.array([[v], [g]]))
     PX = block_diag(PX, Q)
     XX, PX = unscented_transform(vehiclemod, vehiclediff, XX, PX, WB, dt)
+    return XX, PX
 
 def vehiclemod(x, WB, dt):
     V = np.copy(x[-2,:])
