@@ -3,7 +3,7 @@ import numpy as np
 """
 Configuration file
 Permits various adjustments to parameters of the SLAM algorithm.
-See ukfslam_sim.m for more information
+See ukfslam_sim.py for more information
 """
 
 # control parameters
@@ -37,4 +37,3 @@ SWITCH_SENSOR_NOISE = 1 # if 0, measurements are perfect
 SWITCH_INFLATE_NOISE = 0 # if 1, the estimated Q and R are inflated (ie, add stabilising noise)
 SWITCH_HEADING_KNOWN = 0 # if 1, the vehicle heading is observed directly at each iteration
 SWITCH_SEED_RANDOM= 0 # if not 0, seed the randn() with its value at beginning of simulation (for repeatability)
-#SWITCH_GRAPHICS= 1; % if 0, avoids plotting most animation data to maximise simulation speed
