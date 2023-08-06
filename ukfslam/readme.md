@@ -19,3 +19,5 @@ Traceback (most recent call last):
     raise LinAlgError("Matrix is not positive definite")
   numpy.linalg.LinAlgError: Matrix is not positive definite
 ```
+
+Snaha o nalezení chyby způsobující tento problém bohužel nedopadla úspěšně. Z časových důvodů nebylo možné zůstat na místě a nepostupovat dále, proto je tento problém alespoň takto zdokumentován. Řešení by možná poskytlo srovnání každého jednotlivého originálního *m* skriptu s odpovídajícím přepsaným modulem v Pythonu pro stejné vstupní hodnoty. Bohužel tento velmi rozsáhlý opravný krok se již nestihl vykonat. Možná, ale asi méně pravděpodobnější varianta je, že se nějaká knihovní metoda v Pythonu chová trochu jinak než v MATLABu (např. výše uvedená *numpy.linalg.cholesky(P))* .
