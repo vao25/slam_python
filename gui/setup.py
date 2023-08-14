@@ -70,6 +70,12 @@ switch = ""
 user_text = ""
 phi = 0
 
+def isfloat(num):
+    try:
+        float(num)
+        return True
+    except ValueError:
+        return False
   
 while True:     
     for event in pygame.event.get():              
@@ -82,10 +88,14 @@ while True:
                 switch = ""
             elif event.key == pygame.K_BACKSPACE:
                 user_text = user_text[:-1]
+                if (len(user_text) == 1) and user_text[0] == "-":
+                    user_text = user_text[:-1]
                 phi = mapa.add(switch, phi = user_text)
             else:
-                user_text += event.unicode
-                phi = mapa.add(switch, phi = user_text)
+                user_text_test = user_text + event.unicode
+                if isfloat(user_text_test):
+                    user_text = user_text_test
+                    phi = mapa.add(switch, phi = user_text)
             
         if event.type == pygame.MOUSEBUTTONDOWN:
             if((margin <= mouse[0] <= margin+buttonW) and (margin <= mouse[1]<= margin + buttonH)):

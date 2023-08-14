@@ -27,6 +27,9 @@ class Map:
         if switch == "r":
             if phi != "":
                 deg = float(phi)
+                deg = deg - int(deg/360)*360
+                if deg > 180:
+                    deg = -1*(360 - deg)
                 rad = radians(deg)
                 self.x3 = rad
                 return deg
