@@ -24,8 +24,10 @@ Snaha o nalezení chyby způsobující tento problém bohužel nedopadla úspě�
 
 ### AKTUALIZACE 22. 8.
 
-**Již funguje**: chyba nalezena a odstraněna. Nastala skutečně výše zmíněná varianta, kdy metoda *numpy.linalg.cholesky(P)* počítá trochu jinak než její ekvivalent v MATLABu *chol(P)* a to sice, že MATLAB k výpočtu využívá diagonálu a horní trojúhelníkovou část matice **P**, kdežto *numpy.linalg.cholesky(P)* diagonálu a dolní trojúhelníkovou část. NumPy metoda neumožňuje přepnutí typu výpočtu, proto byl použit ekvivalent z modulu SciPy *scipy.linalg.cholesky()*. Ten má parametr, který to umožňuje (počítá tedy stejným způsobem jako v případě MATLABu). Výše zmíněné je také uvedeno v příslušných dokumntacích:
+**Již funguje**: chyba nalezena a odstraněna. Nastala skutečně výše zmíněná varianta, kdy metoda *numpy.linalg.cholesky(P)* počítá trochu jinak než její ekvivalent v MATLABu *chol(P)* a to sice, že MATLAB k výpočtu využívá diagonálu a horní trojúhelníkovou část matice **P**, kdežto *numpy.linalg.cholesky(P)* diagonálu a dolní trojúhelníkovou část. NumPy metoda neumožňuje přepnutí typu výpočtu, proto byl použit ekvivalent z modulu SciPy *scipy.linalg.cholesky()*. Ten má parametr, kterým typ výpočtu lze nastavit (počítá tedy stejným způsobem jako v MATLABu). Výše zmíněné je také uvedeno v příslušných dokumentacích:
 
 https://www.mathworks.com/help/matlab/ref/chol.html
+
 https://numpy.org/doc/stable/reference/generated/numpy.linalg.cholesky.html
+
 https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.cholesky.html
