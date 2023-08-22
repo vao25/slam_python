@@ -3,7 +3,7 @@ import numpy as np
 """
 Configuration file
 Permits various adjustments to parameters of the SLAM algorithm.
-See ukfslam_sim.m for more information
+See ukfslam_sim.py for more information
 """
 
 # control parameters
