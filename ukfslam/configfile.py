@@ -3,7 +3,7 @@ import numpy as np
 """
 Configuration file
 Permits various adjustments to parameters of the SLAM algorithm.
-See ukfslam_sim.py for more information
+See ukfslam_sim.m for more information
 """
 
 # control parameters
@@ -29,7 +29,7 @@ R = np.array([[sigmaR**2, 0], [0, sigmaB**2]])
 
 # waypoint proximity
 AT_WAYPOINT = 1.0 # metres, distance from current waypoint at which to switch to next waypoint
-NUMBER_LOOPS = 2 # number of loops through the waypoint list
+NUMBER_LOOPS = 1 # number of loops through the waypoint list
 
 # switches
 SWITCH_CONTROL_NOISE = 1 # if 0, velocity and gamma are perfect

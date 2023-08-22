@@ -1,4 +1,5 @@
 import numpy as np
+import scipy
 
 def KF_cholesky_update(x,P,v,R,H):
     """
@@ -13,7 +14,7 @@ def KF_cholesky_update(x,P,v,R,H):
     PHt = np.dot(P,H.T)
     S = np.dot(H,PHt) + R
     S = (S + S.T)*0.5 # make symmetric
-    SChol = np.linalg.cholesky(S)
+    SChol = scipy.linalg.cholesky(S)
     SCholInv = np.linalg.inv(SChol) # triangular matrix
     W1 = np.dot(PHt,SCholInv)
     W = np.dot(W1,SCholInv.T)

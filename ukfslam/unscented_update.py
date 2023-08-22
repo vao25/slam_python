@@ -1,6 +1,7 @@
 from sqrt_posdef import sqrt_posdef
 from math import sqrt
 import numpy as np
+import scipy
 
 
 def unscented_update(zfunc, dzfunc, x, P, z, R, *args):
@@ -76,7 +77,7 @@ def unscented_update(zfunc, dzfunc, x, P, z, R, *args):
 
     # Compute Kalman gain
     S = Pzz + R
-    Sc  = np.linalg.cholesky(S)  # note: S = Sc'*Sc
+    Sc  = scipy.linalg.cholesky(S)  # note: S = Sc'*Sc
     Sci = np.linalg.inv(Sc)  # note: inv(S) = Sci*Sci'
     Wc = np.dot(Pxz, Sci)
     W  = np.dot(Wc, Sci.T)
@@ -84,7 +85,7 @@ def unscented_update(zfunc, dzfunc, x, P, z, R, *args):
     # Perform update
     x = x + np.dot(W, (z - zm))
     P = P - np.dot(Wc, Wc.T)
-    PSD_check = np.linalg.cholesky(P)
+    PSD_check = scipy.linalg.cholesky(P)
     
     return x, P
 

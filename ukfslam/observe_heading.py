@@ -9,8 +9,8 @@ def observe_heading(XX, PX, phi, useheading):
     
     if useheading == 0:
         return XX, PX
-    #sigmaPhi = 1 * np.pi / 180 # radians, heading uncertainty
-    sigmaPhi = 0.01 * np.pi / 180 # radians, heading uncertainty
+    sigmaPhi = 1 * np.pi / 180 # radians, heading uncertainty
+    #sigmaPhi = 0.01 * np.pi / 180 # radians, heading uncertainty
     
     H = np.zeros(len(XX))
     H[2] = 1

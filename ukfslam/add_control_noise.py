@@ -9,4 +9,5 @@ def add_control_noise(V,G,Q, addnoise):
     if addnoise == 1:
         V= V + np.random.randn(1)*math.sqrt(Q[0,0])
         G= G + np.random.randn(1)*math.sqrt(Q[1,1])
-    return V[0],G[0]
+        return V[0],G[0]
+    return V,G

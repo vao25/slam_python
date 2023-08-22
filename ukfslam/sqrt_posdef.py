@@ -1,4 +1,5 @@
 import numpy as np
+import scipy
 
 def sqrt_posdef(P):
     # R = sqrt_posdef(P, type)
@@ -7,5 +8,5 @@ def sqrt_posdef(P):
     # Compute the square-root of a symmetric positive definite matrix.
     
     # cholesky decomposition (triangular), P = R*R'
-    R = np.transpose(np.linalg.cholesky(P))
+    R = np.transpose(scipy.linalg.cholesky(P))
     return R 
