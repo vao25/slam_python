@@ -21,3 +21,7 @@ Traceback (most recent call last):
 ```
 
 Snaha o nalezení chyby způsobující tento problém bohužel nedopadla úspěšně. Z časových důvodů nebylo možné zůstat na místě a nepostupovat dále, proto je tento problém alespoň takto zdokumentován. Řešení by možná poskytlo srovnání každého jednotlivého originálního *m* skriptu s odpovídajícím přepsaným modulem v Pythonu pro stejné vstupní hodnoty. Bohužel tento velmi rozsáhlý opravný krok se již nestihl vykonat. Možná, ale asi málo pravděpodobná varianta je, že se nějaká knihovní metoda v Pythonu chová trochu jinak než v MATLABu (např. výše uvedená *numpy.linalg.cholesky(P)* a její ekvivalent v MATLABu *chol(P) )* .
+
+### AKTUALIZACE 22. 8.
+
+**Již funguje**: chyba nalezena a odstraněna. Nastala skutečně výše zmíněná varianta, kdy metoda *numpy.linalg.cholesky(P)* počítá trochu jinak než její ekvivalent v MATLABu *chol(P)*, a to sice matice, že MATLAB k výpočtu využívá diagonálu a horní trojúhleníkovou část matice **P**, kdežto *numpy.linalg.cholesky(P)* diagonálu a dolní trojúhelníkovou část. NumPy metoda neumožňuje přepnutí typu výpočtu, proto byl použit ekvivalent z modulu SciPy *scipy.linalg.cholesky()*, který má parametr, který to umožňuje (počítá tedy stejným způsobem jako v MATLABU).
